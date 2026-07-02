@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کافه گالری ایران</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:tahoma;
+}
+
+body{
+background:#111;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+width:90%;
+max-width:400px;
+background:#1b1b1b;
+padding:30px;
+border-radius:20px;
+border:2px solid #d4af37;
+text-align:center;
+}
+
+.logo{
+font-size:60px;
+margin-bottom:15px;
+}
+
+h1{
+color:#d4af37;
+margin-bottom:10px;
+}
+
+p{
+color:#aaa;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:none;
+border-radius:10px;
+background:#222;
+color:#fff;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#d4af37;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.footer{
+margin-top:20px;
+font-size:12px;
+color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">☕</div>
+
+<h1>کافه گالری ایران</h1>
+
+<p>مدیریت رسپی و کافه</p>
+
+<input
+type="text"
+id="username"
+placeholder="نام کاربری"
+value="admin">
+
+<input
+type="password"
+id="password"
+placeholder="رمز عبور">
+
+<button onclick="login()">
+ورود به برنامه
+</button>
+
+<div class="footer">
+طراحی و توسعه: محسن بابایی
+<br>
+09393512173
+<br>
+09113512173
+</div>
+
+</div>
+
+<script>
+
+if(!localStorage.getItem("password")){
+localStorage.setItem("password","1234");
+}
+
+function login(){
+
+let user =
+document.getElementById("username").value;
+
+let pass =
+document.getElementById("password").value;
+
+let saved =
+localStorage.getItem("password");
+
+if(user==="admin" && pass===saved){
+
+window.location.href=
+"dashboard_pro.html";
+
+}else{
+
+alert("نام کاربری یا رمز عبور اشتباه است");
+
+}
+
+}
+
+if('serviceWorker' in navigator){
+window.addEventListener('load',()=>{
+navigator.serviceWorker.register(
+'service-worker.js'
+);
+});
+}
+
+</script>
+
+</body>
+</html>
