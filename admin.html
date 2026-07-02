@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مدیریت کافه گالری ایران</title>
+
+<style>
+body{
+  background:#111;
+  color:#fff;
+  font-family:tahoma;
+  padding:15px;
+}
+
+input, textarea, select{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+  border-radius:6px;
+  border:none;
+}
+
+button{
+  padding:10px;
+  margin:5px;
+  cursor:pointer;
+}
+
+.card{
+  border:1px solid #444;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+}
+img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🍽 مدیریت رسپی‌ها</h2>
+
+<input id="searchBox" placeholder="🔍 جستجو..." oninput="renderRecipes()">
+
+<select id="filterCategory" onchange="renderRecipes()">
+  <option value="">همه دسته‌ها</option>
+</select>
+
+<hr>
+
+<h3>➕ افزودن / ویرایش رسپی</h3>
+
+<input id="rTitle" placeholder="نام رسپی">
+<input id="rCategory" placeholder="دسته (پیتزا / برگر / دسر)">
+<input type="file" id="rImageFile">
+<textarea id="rText" placeholder="طرز تهیه"></textarea>
+
+<button onclick="saveRecipe()">ذخیره</button>
+
+<hr>
+
+<h3>📋 لیست رسپی‌ها</h3>
+<div id="recipeList"></div>
+
+<script>
+let editId = null;
+
+function getRecipes(){
+  return JSON.parse(localStorage.getItem("recipes") || "[]");
+}
+
+function setRecipes(data){
+  localStorage.setItem("recipes", JSON.stringify(data));
+}
+
+// عکس به base64
+function toBase64(file){
+  return new Promise(res=>{
+    let reader = new FileReader();
+    reader.onload = () => res(reader.result);
+    reader.readAsDataURL(file);
+  });
+}
+
+// ذخیره
+async function saveRecipe(){
+  let recipes = getRecipes();
+
+  let title = rTitle.value;
+  let category = rCategory.value;
+  let text = rText.value;
+
+  let file = rImageFile.files[0];
+  let image = file ? await toBase64(file) : "";
+
+  if(editId){
+    recipes = recipes.map(r => r.id === editId ? {
+      ...r,
+      title,
+      category,
+      text,
+      image: image || r.image
+    } : r);
+
+    editId = null;
+  } else {
+    recipes.push({
+      id: Date.now(),
+      title,
+      category,
+      text,
+      image
+    });
+  }
+
+  setRecipes(recipes);
+  clearForm();
+  renderRecipes();
+  loadCategories();
+}
+
+// نمایش
+function renderRecipes(){
+  let recipes = getRecipes();
+
+  let search = searchBox.value.toLowerCase();
+  let filter = filterCategory.value;
+
+  if(search){
+    recipes = recipes.filter(r =>
+      r.title.toLowerCase().includes(search) ||
+      r.text.toLowerCase().includes(search)
+    );
+  }
+
+  if(filter){
+    recipes = recipes.filter(r => r.category === filter);
+  }
+
+  recipeList.innerHTML = recipes.map(r => `
+    <div class="card">
+      ${r.image ? `<img src="${r.image}">` : ""}
+
+      <h3>${r.title}</h3>
+      <small>📂 ${r.category}</small>
+      <p>${r.text}</p>
+
+      <button onclick="editRecipe(${r.id})">✏ ویرایش</button>
+      <button onclick="deleteRecipe(${r.id})" style="color:red">🗑 حذف</button>
+    </div>
+  `).join("");
+}
+
+// حذف
+function deleteRecipe(id){
+  setRecipes(getRecipes().filter(r => r.id !== id));
+  renderRecipes();
+  loadCategories();
+}
+
+// ویرایش
+function editRecipe(id){
+  let r = getRecipes().find(x => x.id === id);
+
+  rTitle.value = r.title;
+  rCategory.value = r.category;
+  rText.value = r.text;
+
+  editId = id;
+}
+
+// پاک کردن فرم
+function clearForm(){
+  rTitle.value = "";
+  rCategory.value = "";
+  rText.value = "";
+  rImageFile.value = "";
+}
+
+// دسته‌ها
+function loadCategories(){
+  let cats = [...new Set(getRecipes().map(r => r.category))];
+
+  filterCategory.innerHTML =
+    `<option value="">همه دسته‌ها</option>` +
+    cats.map(c => `<option value="${c}">${c}</option>`).join("");
+}
+
+// شروع
+renderRecipes();
+loadCategories();
+</script>
+ <script src="admin.js"></script>
+</body>
+</html>
