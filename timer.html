@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تایمر و کرنومتر</title>
+<style>
+body{font-family:tahoma;background:#111;color:#fff;text-align:center;padding:20px}
+h1{color:#d4af37}
+#display{font-size:50px;margin:20px}
+button{padding:10px 15px;margin:5px;background:#d4af37;border:none;border-radius:8px}
+input{padding:10px;border-radius:8px}
+</style>
+</head>
+<body>
+<h1>⏱️ تایمر و کرنومتر</h1>
+
+<div id="display">00:00:00</div>
+
+<button onclick="startSW()">شروع</button>
+<button onclick="stopSW()">توقف</button>
+<button onclick="resetSW()">ریست</button>
+
+<hr>
+
+<h3>تایمر شمارش معکوس</h3>
+<input type="number" id="minutes" placeholder="دقیقه">
+<button onclick="startTimer()">شروع تایمر</button>
+
+<script>
+let sec=0,interval;
+
+function update(){
+let h=Math.floor(sec/3600);
+let m=Math.floor((sec%3600)/60);
+let s=sec%60;
+display.innerHTML=
+String(h).padStart(2,'0')+":" +
+String(m).padStart(2,'0')+":" +
+String(s).padStart(2,'0');
+}
+
+function startSW(){
+clearInterval(interval);
+interval=setInterval(()=>{sec++;update();},1000);
+}
+function stopSW(){clearInterval(interval);}
+function resetSW(){sec=0;update();}
+
+function startTimer(){
+let remain=(parseInt(minutes.value)||0)*60;
+clearInterval(interval);
+interval=setInterval(()=>{
+if(remain<=0){
+clearInterval(interval);
+alert('زمان تمام شد');
+return;
+}
+remain--;
+let m=Math.floor(remain/60);
+let s=remain%60;
+display.innerHTML='00:'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+},1000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>پشتیبان گیری</title>
+<style>
+body{font-family:tahoma;background:#111;color:#fff;padding:20px}
+h1{color:#d4af37}
+button{padding:12px 16px;margin:5px;background:#d4af37;border:none;border-radius:8px}
+input{margin-top:10px}
+</style>
+</head>
+<body>
+<h1>💾 پشتیبان گیری و بازیابی</h1>
+
+<button onclick="backup()">دریافت فایل پشتیبان</button>
+<br><br>
+<input type="file" id="restoreFile">
+<button onclick="restore()">بازیابی اطلاعات</button>
+
+<script>
+function backup(){
+const data={
+recipes:JSON.parse(localStorage.getItem('recipes')||'[]'),
+inventory:JSON.parse(localStorage.getItem('inventory')||'[]'),
+notes:JSON.parse(localStorage.getItem('notes')||'[]'),
+contacts:JSON.parse(localStorage.getItem('contacts')||'[]')
+};
+
+const blob=new Blob([JSON.stringify(data)],{type:'application/json'});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download='CafeGalleryIran_Backup.json';
+a.click();
+}
+
+function restore(){
+const file=document.getElementById('restoreFile').files[0];
+if(!file) return alert('فایل انتخاب نشده');
+const reader=new FileReader();
+reader.onload=function(e){
+const data=JSON.parse(e.target.result);
+localStorage.setItem('recipes',JSON.stringify(data.recipes||[]));
+localStorage.setItem('inventory',JSON.stringify(data.inventory||[]));
+localStorage.setItem('notes',JSON.stringify(data.notes||[]));
+localStorage.setItem('contacts',JSON.stringify(data.contacts||[]));
+alert('بازیابی با موفقیت انجام شد');
+};
+reader.readAsText(file);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دفتر تلفن</title>
+<style>
+body{font-family:tahoma;background:#111;color:#fff;padding:15px}
+h1{color:#d4af37}
+input{width:100%;padding:10px;margin:5px 0;background:#222;color:#fff;border:1px solid #d4af37;border-radius:8px}
+button{padding:10px 15px;background:#d4af37;border:none;border-radius:8px}
+.item{background:#1b1b1b;border:1px solid #d4af37;padding:10px;margin-top:10px;border-radius:8px}
+</style>
+</head>
+<body>
+<h1>📞 دفتر تلفن کافه گالری ایران</h1>
+<input id="name" placeholder="نام مخاطب">
+<input id="phone" placeholder="شماره تماس">
+<button onclick="saveContact()">ذخیره</button>
+<div id="list"></div>
+<script>
+function saveContact(){
+let data=JSON.parse(localStorage.getItem('contacts')||'[]');
+data.push({name:name.value,phone:phone.value});
+localStorage.setItem('contacts',JSON.stringify(data));
+name.value=''; phone.value='';
+loadContacts();
+}
+function del(i){
+let data=JSON.parse(localStorage.getItem('contacts')||'[]');
+data.splice(i,1);
+localStorage.setItem('contacts',JSON.stringify(data));
+loadContacts();
+}
+function loadContacts(){
+let data=JSON.parse(localStorage.getItem('contacts')||'[]');
+list.innerHTML='';
+data.forEach((c,i)=>{
+list.innerHTML+=`<div class="item"><b>${c.name}</b><br>${c.phone}<br><button onclick="del(${i})">حذف</button></div>`;
+});
+}
+loadContacts();
+</script>
+</body>
+</html>

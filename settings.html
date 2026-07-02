@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تنظیمات</title>
+<style>
+body{font-family:tahoma;background:#111;color:#fff;padding:20px}
+h1{color:#d4af37}
+.card{background:#1b1b1b;border:1px solid #d4af37;border-radius:10px;padding:15px;margin-bottom:15px}
+input,select{width:100%;padding:10px;margin-top:8px;background:#222;color:#fff;border:1px solid #d4af37;border-radius:8px}
+button{padding:10px 15px;background:#d4af37;border:none;border-radius:8px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<h1>⚙️ تنظیمات</h1>
+
+<div class="card">
+<h3>نام کافه</h3>
+<input id="cafeName" placeholder="نام کافه">
+<button onclick="saveCafe()">ذخیره</button>
+</div>
+
+<div class="card">
+<h3>تغییر رمز عبور</h3>
+<input id="newPass" type="password" placeholder="رمز جدید">
+<button onclick="savePass()">ذخیره رمز</button>
+</div>
+
+<div class="card">
+<h3>انتخاب رنگ برنامه</h3>
+<select id="theme">
+<option value="gold">مشکی طلایی</option>
+<option value="blue">آبی</option>
+<option value="green">سبز</option>
+<option value="red">قرمز</option>
+</select>
+<button onclick="saveTheme()">ذخیره رنگ</button>
+</div>
+
+<div class="card">
+<h3>اطلاعات برنامه</h3>
+<p>کافه گالری ایران</p>
+<p>طراحی و توسعه: محسن بابایی</p>
+<p>09393512173</p>
+<p>09113512173</p>
+</div>
+
+<script>
+function saveCafe(){
+localStorage.setItem('cafeName',cafeName.value);
+alert('ذخیره شد');
+}
+function savePass(){
+localStorage.setItem('password',newPass.value);
+alert('رمز عبور ذخیره شد');
+}
+function saveTheme(){
+localStorage.setItem('theme',theme.value);
+alert('رنگ ذخیره شد');
+}
+
+cafeName.value=localStorage.getItem('cafeName')||'کافه گالری ایران';
+theme.value=localStorage.getItem('theme')||'gold';
+</script>
+
+</body>
+</html>

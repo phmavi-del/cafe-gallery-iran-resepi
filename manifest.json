@@ -1,0 +1,10 @@
+{
+  "name": "کافه گالری ایران",
+  "short_name": "CafeGallery",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#d4af37",
+  "description": "مدیریت رسپی، انبار، یادداشت و ابزارهای کافه",
+  "icons": []
+}

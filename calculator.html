@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ماشین حساب</title>
+<style>
+body{font-family:tahoma;background:#111;color:#fff;text-align:center;padding:20px}
+h1{color:#d4af37}
+input{width:100%;max-width:400px;padding:15px;font-size:24px;background:#222;color:#fff;border:1px solid #d4af37;border-radius:8px}
+.grid{display:grid;grid-template-columns:repeat(4,80px);gap:10px;justify-content:center;margin-top:20px}
+button{padding:15px;font-size:20px;background:#d4af37;border:none;border-radius:8px}
+</style>
+</head>
+<body>
+<h1>🧮 ماشین حساب</h1>
+<input id="display" readonly>
+
+<div class="grid">
+<button onclick="add('7')">7</button>
+<button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button>
+<button onclick="add('/')">÷</button>
+
+<button onclick="add('4')">4</button>
+<button onclick="add('5')">5</button>
+<button onclick="add('6')">6</button>
+<button onclick="add('*')">×</button>
+
+<button onclick="add('1')">1</button>
+<button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button>
+<button onclick="add('-')">-</button>
+
+<button onclick="add('0')">0</button>
+<button onclick="calc()">=</button>
+<button onclick="clr()">C</button>
+<button onclick="add('+')">+</button>
+</div>
+
+<script>
+function add(v){display.value += v;}
+function clr(){display.value='';}
+function calc(){
+try{display.value = eval(display.value);}
+catch(e){display.value='Error';}
+}
+</script>
+</body>
+</html>

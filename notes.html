@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دفترچه یادداشت</title>
+<style>
+body{font-family:tahoma;background:#111;color:#fff;padding:15px}
+h1{color:#d4af37}
+textarea{width:100%;height:120px;background:#222;color:#fff;border:1px solid #d4af37;border-radius:8px;padding:10px}
+button{margin-top:10px;padding:10px 15px;background:#d4af37;border:none;border-radius:8px}
+.note{background:#1b1b1b;border:1px solid #d4af37;padding:10px;margin-top:10px;border-radius:8px}
+</style>
+</head>
+<body>
+<h1>📝 دفترچه یادداشت کافه گالری ایران</h1>
+<textarea id="txt" placeholder="یادداشت جدید..."></textarea>
+<br><button onclick="saveNote()">ذخیره</button>
+<div id="list"></div>
+
+<script>
+function saveNote(){
+ let notes=JSON.parse(localStorage.getItem('notes')||'[]');
+ notes.push(txt.value);
+ localStorage.setItem('notes',JSON.stringify(notes));
+ txt.value='';
+ load();
+}
+function del(i){
+ let notes=JSON.parse(localStorage.getItem('notes')||'[]');
+ notes.splice(i,1);
+ localStorage.setItem('notes',JSON.stringify(notes));
+ load();
+}
+function load(){
+ let notes=JSON.parse(localStorage.getItem('notes')||'[]');
+ list.innerHTML='';
+ notes.forEach((n,i)=>{
+  list.innerHTML += `<div class="note">${n}<br><button onclick="del(${i})">حذف</button></div>`;
+ });
+}
+load();
+</script>
+</body>
+</html>
