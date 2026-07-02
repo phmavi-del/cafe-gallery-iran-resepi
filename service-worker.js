@@ -4,7 +4,6 @@ const CACHE_NAME = 'cafe-gallery-v1';
 const urlsToCache = [
 '/',
 'index.html',
-'dashboard.html',
 'dashboard_pro.html',
 'recipes.html',
 'inventory.html',
@@ -13,7 +12,8 @@ const urlsToCache = [
 'calculator.html',
 'timer.html',
 'backup.html',
-'settings.html'
+'settings.html',
+'manifest.json'
 ];
 
 self.addEventListener('install', event => {
