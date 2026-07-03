@@ -4,65 +4,194 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>تنظیمات</title>
+
 <style>
-body{font-family:tahoma;background:#111;color:#fff;padding:20px}
-h1{color:#d4af37}
-.card{background:#1b1b1b;border:1px solid #d4af37;border-radius:10px;padding:15px;margin-bottom:15px}
-input,select{width:100%;padding:10px;margin-top:8px;background:#222;color:#fff;border:1px solid #d4af37;border-radius:8px}
-button{padding:10px 15px;background:#d4af37;border:none;border-radius:8px;margin-top:10px}
+body{
+font-family:tahoma;
+background:#111;
+color:#fff;
+padding:20px;
+}
+
+h1{
+color:#d4af37;
+}
+
+.card{
+background:#1b1b1b;
+border:1px solid #d4af37;
+border-radius:10px;
+padding:15px;
+margin-bottom:15px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-top:8px;
+background:#222;
+color:#fff;
+border:1px solid #d4af37;
+border-radius:8px;
+}
+
+button{
+padding:10px 15px;
+background:#d4af37;
+border:none;
+border-radius:8px;
+margin-top:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.info{
+line-height:2;
+}
 </style>
+
 </head>
 <body>
 
-<h1>⚙️ تنظیمات</h1>
+<h1>⚙️ تنظیمات برنامه</h1>
 
 <div class="card">
+
 <h3>نام کافه</h3>
-<input id="cafeName" placeholder="نام کافه">
-<button onclick="saveCafe()">ذخیره</button>
+
+<input
+id="cafeName"
+placeholder="نام کافه">
+
+<button onclick="saveCafe()">
+ذخیره نام کافه
+</button>
+
 </div>
 
 <div class="card">
+
 <h3>تغییر رمز عبور</h3>
-<input id="newPass" type="password" placeholder="رمز جدید">
-<button onclick="savePass()">ذخیره رمز</button>
+
+<input
+id="newPass"
+type="password"
+placeholder="رمز جدید">
+
+<button onclick="savePass()">
+ذخیره رمز عبور
+</button>
+
 </div>
 
 <div class="card">
-<h3>انتخاب رنگ برنامه</h3>
+
+<h3>رنگ برنامه</h3>
+
 <select id="theme">
-<option value="gold">مشکی طلایی</option>
-<option value="blue">آبی</option>
-<option value="green">سبز</option>
-<option value="red">قرمز</option>
+
+<option value="gold">
+مشکی طلایی
+</option>
+
+<option value="blue">
+آبی
+</option>
+
+<option value="green">
+سبز
+</option>
+
+<option value="red">
+قرمز
+</option>
+
 </select>
-<button onclick="saveTheme()">ذخیره رنگ</button>
+
+<button onclick="saveTheme()">
+ذخیره رنگ
+</button>
+
 </div>
 
-<div class="card">
+<div class="card info">
+
 <h3>اطلاعات برنامه</h3>
+
 <p>کافه گالری ایران</p>
+
 <p>طراحی و توسعه: محسن بابایی</p>
+
 <p>09393512173</p>
+
 <p>09113512173</p>
+
 </div>
 
 <script>
+
 function saveCafe(){
-localStorage.setItem('cafeName',cafeName.value);
-alert('ذخیره شد');
-}
-function savePass(){
-localStorage.setItem('password',newPass.value);
-alert('رمز عبور ذخیره شد');
-}
-function saveTheme(){
-localStorage.setItem('theme',theme.value);
-alert('رنگ ذخیره شد');
+
+const cafe =
+document.getElementById("cafeName").value.trim();
+
+if(cafe===""){
+alert("نام کافه را وارد کنید");
+return;
 }
 
-cafeName.value=localStorage.getItem('cafeName')||'کافه گالری ایران';
-theme.value=localStorage.getItem('theme')||'gold';
+localStorage.setItem(
+"cafeName",
+cafe
+);
+
+alert("نام کافه ذخیره شد");
+
+}
+
+function savePass(){
+
+const pass =
+document.getElementById("newPass").value.trim();
+
+if(pass===""){
+alert("رمز عبور را وارد کنید");
+return;
+}
+
+localStorage.setItem(
+"password",
+pass
+);
+
+alert("رمز عبور ذخیره شد");
+
+}
+
+function saveTheme(){
+
+const theme =
+document.getElementById("theme").value;
+
+localStorage.setItem(
+"theme",
+theme
+);
+
+alert("رنگ برنامه ذخیره شد");
+
+}
+
+document.getElementById("cafeName").value =
+localStorage.getItem("cafeName")
+||
+"کافه گالری ایران";
+
+document.getElementById("theme").value =
+localStorage.getItem("theme")
+||
+"gold";
+
 </script>
 
 </body>

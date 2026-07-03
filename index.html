@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>کافه گالری ایران</title>
 
-<link rel="manifest" href="manifest.json">
-
 <style>
 *{
 margin:0;
@@ -17,91 +15,103 @@ font-family:tahoma;
 
 body{
 background:#111;
-color:#fff;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
 }
 
-.container{
-width:90%;
-max-width:400px;
+.login-box{
+width:350px;
 background:#1b1b1b;
 padding:30px;
 border-radius:20px;
 border:2px solid #d4af37;
-text-align:center;
+box-shadow:0 0 20px rgba(212,175,55,.3);
 }
 
 .logo{
-font-size:60px;
-margin-bottom:15px;
+text-align:center;
+margin-bottom:20px;
+}
+
+.logo-circle{
+width:90px;
+height:90px;
+border-radius:50%;
+background:#d4af37;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+font-weight:bold;
+color:#111;
 }
 
 h1{
 color:#d4af37;
-margin-bottom:10px;
+font-size:24px;
+text-align:center;
+margin-top:15px;
 }
 
 p{
-color:#aaa;
+color:#ccc;
+text-align:center;
 margin-bottom:20px;
 }
 
 input{
 width:100%;
 padding:12px;
-margin:8px 0;
+margin-bottom:15px;
 border:none;
 border-radius:10px;
-background:#222;
-color:#fff;
+background:#2b2b2b;
+color:white;
+font-size:16px;
 }
 
 button{
 width:100%;
 padding:12px;
-margin-top:10px;
 background:#d4af37;
 border:none;
 border-radius:10px;
+font-size:18px;
 font-weight:bold;
 cursor:pointer;
 }
 
+button:hover{
+opacity:.9;
+}
+
 .footer{
 margin-top:20px;
-font-size:12px;
+text-align:center;
 color:#888;
+font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="login-box">
 
-<div class="logo">☕</div>
-
+<div class="logo">
+<div class="logo-circle">CG</div>
 <h1>کافه گالری ایران</h1>
+<p>Recipe Manager</p>
+</div>
 
-<p>مدیریت رسپی و کافه</p>
+<input type="text" id="username" placeholder="نام کاربری">
 
-<input
-type="text"
-id="username"
-placeholder="نام کاربری"
-value="admin">
+<input type="password" id="password" placeholder="رمز عبور">
 
-<input
-type="password"
-id="password"
-placeholder="رمز عبور">
-
-<button onclick="login()">
-ورود به برنامه
-</button>
+<button onclick="login()">ورود</button>
 
 <div class="footer">
 طراحی و توسعه: محسن بابایی
@@ -116,39 +126,26 @@ placeholder="رمز عبور">
 <script>
 
 if(!localStorage.getItem("password")){
-localStorage.setItem("password","1234");
+let firstPass = prompt("برای اولین ورود رمز عبور تعیین کنید");
+localStorage.setItem("password",firstPass);
 }
 
 function login(){
 
-let user =
-document.getElementById("username").value;
+let user = document.getElementById("username").value;
+let pass = document.getElementById("password").value;
 
-let pass =
-document.getElementById("password").value;
+let savedPass = localStorage.getItem("password");
 
-let saved =
-localStorage.getItem("password");
+if(user === "admin" && pass === savedPass){
 
-if(user==="admin" && pass===saved){
-
-window.location.href=
-"dashboard_pro.html";
+window.location.href="dashboard_pro.html";
 
 }else{
 
 alert("نام کاربری یا رمز عبور اشتباه است");
 
 }
-
-}
-
-if('serviceWorker' in navigator){
-window.addEventListener('load',()=>{
-navigator.serviceWorker.register(
-'service-worker.js'
-);
-});
 }
 
 </script>

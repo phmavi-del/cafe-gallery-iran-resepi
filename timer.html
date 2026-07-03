@@ -4,15 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>تایمر و کرنومتر</title>
+
 <style>
-body{font-family:tahoma;background:#111;color:#fff;text-align:center;padding:20px}
-h1{color:#d4af37}
-#display{font-size:50px;margin:20px}
-button{padding:10px 15px;margin:5px;background:#d4af37;border:none;border-radius:8px}
-input{padding:10px;border-radius:8px}
+body{
+font-family:tahoma;
+background:#111;
+color:#fff;
+text-align:center;
+padding:20px;
+}
+
+h1{
+color:#d4af37;
+}
+
+#display{
+font-size:50px;
+margin:20px;
+font-weight:bold;
+color:#d4af37;
+}
+
+button{
+padding:10px 15px;
+margin:5px;
+background:#d4af37;
+border:none;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+input{
+padding:10px;
+border-radius:8px;
+border:1px solid #d4af37;
+background:#222;
+color:#fff;
+text-align:center;
+}
+
+hr{
+margin:30px 0;
+border:1px solid #333;
+}
 </style>
+
 </head>
 <body>
+
 <h1>⏱️ تایمر و کرنومتر</h1>
 
 <div id="display">00:00:00</div>
@@ -24,44 +64,115 @@ input{padding:10px;border-radius:8px}
 <hr>
 
 <h3>تایمر شمارش معکوس</h3>
-<input type="number" id="minutes" placeholder="دقیقه">
-<button onclick="startTimer()">شروع تایمر</button>
+
+<input
+type="number"
+id="minutes"
+placeholder="دقیقه">
+
+<button onclick="startTimer()">
+شروع تایمر
+</button>
 
 <script>
-let sec=0,interval;
+
+let sec = 0;
+let interval;
 
 function update(){
-let h=Math.floor(sec/3600);
-let m=Math.floor((sec%3600)/60);
-let s=sec%60;
-display.innerHTML=
-String(h).padStart(2,'0')+":" +
-String(m).padStart(2,'0')+":" +
-String(s).padStart(2,'0');
+
+let h = Math.floor(sec/3600);
+let m = Math.floor((sec%3600)/60);
+let s = sec%60;
+
+document.getElementById("display").innerHTML =
+String(h).padStart(2,"0") + ":" +
+String(m).padStart(2,"0") + ":" +
+String(s).padStart(2,"0");
+
 }
 
 function startSW(){
+
 clearInterval(interval);
-interval=setInterval(()=>{sec++;update();},1000);
+
+interval = setInterval(()=>{
+
+sec++;
+update();
+
+},1000);
+
 }
-function stopSW(){clearInterval(interval);}
-function resetSW(){sec=0;update();}
+
+function stopSW(){
+
+clearInterval(interval);
+
+}
+
+function resetSW(){
+
+clearInterval(interval);
+
+sec = 0;
+
+update();
+
+}
 
 function startTimer(){
-let remain=(parseInt(minutes.value)||0)*60;
-clearInterval(interval);
-interval=setInterval(()=>{
-if(remain<=0){
-clearInterval(interval);
-alert('زمان تمام شد');
+
+let min =
+parseInt(
+document.getElementById("minutes").value
+);
+
+if(!min || min <= 0){
+
+alert("زمان را وارد کنید");
+
 return;
+
 }
+
+let remain = min * 60;
+
+clearInterval(interval);
+
+interval = setInterval(()=>{
+
+if(remain <= 0){
+
+clearInterval(interval);
+
+document.getElementById("display").innerHTML =
+"00:00:00";
+
+alert("زمان تمام شد");
+
+return;
+
+}
+
 remain--;
-let m=Math.floor(remain/60);
-let s=remain%60;
-display.innerHTML='00:'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+
+let h = Math.floor(remain/3600);
+let m = Math.floor((remain%3600)/60);
+let s = remain%60;
+
+document.getElementById("display").innerHTML =
+String(h).padStart(2,"0")+":"+
+String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0");
+
 },1000);
+
 }
+
+update();
+
 </script>
+
 </body>
 </html>

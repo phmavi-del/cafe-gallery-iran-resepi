@@ -1,148 +1,48 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang='fa' dir='rtl'>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>کافه گالری ایران</title>
-
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>داشبورد حرفه‌ای</title>
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:tahoma;
-}
-
-body{
-background:#111;
-color:#fff;
-}
-
-.header{
-background:#000;
-padding:20px;
-text-align:center;
-border-bottom:2px solid #d4af37;
-}
-
-.header h1{
-color:#d4af37;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-padding:20px;
-}
-
-.card{
-background:#1b1b1b;
-border:1px solid #d4af37;
-border-radius:15px;
-padding:25px;
-text-align:center;
-text-decoration:none;
-color:#fff;
-font-size:18px;
-transition:.3s;
-}
-
-.card:hover{
-transform:scale(1.03);
-}
-
-.footer{
-text-align:center;
-padding:20px;
-color:#999;
-}
-
-.logout{
-display:block;
-width:220px;
-margin:20px auto;
-padding:12px;
-background:#d4af37;
-color:#000;
-text-decoration:none;
-border-radius:10px;
-text-align:center;
-font-weight:bold;
-}
+body{font-family:tahoma;background:#111;color:#fff;margin:0}
+.header{background:#000;padding:15px;border-bottom:2px solid #d4af37}
+h1{color:#d4af37;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;padding:15px}
+.card{background:#1b1b1b;border:1px solid #d4af37;border-radius:12px;padding:20px;text-align:center;text-decoration:none;color:#fff}
+.card:hover{transform:scale(1.02)}
+.footer{text-align:center;padding:15px;color:#aaa}
 </style>
-
 </head>
 <body>
-
 <div class="header">
-<h1 id="cafeTitle">کافه گالری ایران</h1>
-<p>سیستم مدیریت کافه</p>
+<h1>☕ کافه گالری ایران</h1>
 </div>
 
 <div class="grid">
-
-<a class="card" href="recipes.html">
-🍔 رسپی ها
-</a>
-
-<a class="card" href="inventory.html">
-📦 انبار
-</a>
-
-<a class="card" href="notes.html">
-📝 یادداشت ها
-</a>
-
-<a class="card" href="contacts.html">
-📞 دفتر تلفن
-</a>
-
-<a class="card" href="calculator.html">
-🧮 ماشین حساب
-</a>
-
-<a class="card" href="timer.html">
-⏱️ تایمر
-</a>
-
-<a class="card" href="backup.html">
-💾 پشتیبان گیری
-</a>
-
-<a class="card" href="settings.html">
-⚙️ تنظیمات
-</a>
-
+<a class="card" href="recipes.html">🍔 رسپی‌ها</a>
+<a class="card" href="inventory.html">📦 انبار</a>
+<a class="card" href="notes.html">📝 یادداشت‌ها</a>
+<a class="card" href="contacts.html">📞 دفتر تلفن</a>
+<a class="card" href="calculator.html">🧮 ماشین حساب</a>
+<a class="card" href="timer.html">⏱️ تایمر</a>
+<a class="card" href="backup.html">💾 پشتیبان گیری</a>
+<a class="card" href="settings.html">⚙️ تنظیمات</a>
 </div>
-
-<a class="logout" href="index.html">
-خروج از برنامه
-</a>
 
 <div class="footer">
-طراحی و توسعه: محسن بابایی
-<br>
-09393512173
-<br>
-09113512173
-</div>
+طراحی و توسعه: محسن بابایی<br>
+09393512173 - 09113512173
 
 <script>
-
 const cafeName =
-localStorage.getItem("cafeName");
+localStorage.getItem("cafeName")
+|| "کافه گالری ایران";
 
-if(cafeName){
-document.getElementById("cafeTitle").innerText =
-cafeName;
-}
-
-if("serviceWorker" in navigator){
-navigator.serviceWorker.register("service-worker.js");
-}
-
+document.querySelector("h1").innerText =
+"☕ " + cafeName;
 </script>
 
+</div>
 </body>
 </html>

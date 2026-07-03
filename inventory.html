@@ -4,19 +4,56 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>انبار مواد اولیه</title>
+
 <style>
-body{font-family:tahoma;background:#111;color:#fff;padding:15px}
-h1{color:#d4af37}
-input,select{width:100%;padding:10px;margin:5px 0;background:#222;color:#fff;border:1px solid #d4af37;border-radius:8px}
-button{padding:10px 15px;background:#d4af37;border:none;border-radius:8px}
-.item{background:#1b1b1b;border:1px solid #d4af37;padding:10px;margin-top:10px;border-radius:8px}
+body{
+font-family:tahoma;
+background:#111;
+color:#fff;
+padding:15px;
+}
+
+h1{
+color:#d4af37;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:5px 0;
+background:#222;
+color:#fff;
+border:1px solid #d4af37;
+border-radius:8px;
+}
+
+button{
+padding:10px 15px;
+background:#d4af37;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.item{
+background:#1b1b1b;
+border:1px solid #d4af37;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+}
 </style>
+
 </head>
 <body>
+
 <h1>📦 انبار کافه گالری ایران</h1>
 
 <input id="name" placeholder="نام ماده اولیه">
+
 <input id="qty" type="number" placeholder="موجودی">
+
 <select id="unit">
 <option>کیلوگرم</option>
 <option>گرم</option>
@@ -24,46 +61,133 @@ button{padding:10px 15px;background:#d4af37;border:none;border-radius:8px}
 <option>میلی لیتر</option>
 <option>عدد</option>
 </select>
+
 <input id="price" type="number" placeholder="قیمت خرید">
 
-<button onclick="saveItem()">ذخیره</button>
+<button onclick="saveItem()">
+ذخیره
+</button>
 
 <div id="list"></div>
 
 <script>
+
 function saveItem(){
-let data=JSON.parse(localStorage.getItem('inventory')||'[]');
+
+const nameInput =
+document.getElementById("name");
+
+const qtyInput =
+document.getElementById("qty");
+
+const unitInput =
+document.getElementById("unit");
+
+const priceInput =
+document.getElementById("price");
+
+if(
+nameInput.value.trim()==="" ||
+qtyInput.value.trim()===""
+){
+alert("نام و موجودی را وارد کنید");
+return;
+}
+
+let data =
+JSON.parse(
+localStorage.getItem("inventory") || "[]"
+);
+
 data.push({
-name:name.value,
-qty:qty.value,
-unit:unit.value,
-price:price.value
+
+name:nameInput.value,
+
+qty:qtyInput.value,
+
+unit:unitInput.value,
+
+price:priceInput.value
+
 });
-localStorage.setItem('inventory',JSON.stringify(data));
-name.value=''; qty.value=''; price.value='';
+
+localStorage.setItem(
+"inventory",
+JSON.stringify(data)
+);
+
+nameInput.value="";
+qtyInput.value="";
+priceInput.value="";
+
 loadItems();
+
 }
 
 function del(i){
-let data=JSON.parse(localStorage.getItem('inventory')||'[]');
+
+let data =
+JSON.parse(
+localStorage.getItem("inventory") || "[]"
+);
+
 data.splice(i,1);
-localStorage.setItem('inventory',JSON.stringify(data));
+
+localStorage.setItem(
+"inventory",
+JSON.stringify(data)
+);
+
 loadItems();
+
 }
 
 function loadItems(){
-let data=JSON.parse(localStorage.getItem('inventory')||'[]');
-list.innerHTML='';
+
+let data =
+JSON.parse(
+localStorage.getItem("inventory") || "[]"
+);
+
+let html="";
+
 data.forEach((x,i)=>{
-list.innerHTML += `<div class="item">
-<b>${x.name}</b><br>
-موجودی: ${x.qty} ${x.unit}<br>
-قیمت خرید: ${x.price}<br>
-<button onclick="del(${i})">حذف</button>
-</div>`;
+
+html += `
+<div class="item">
+
+<b>${x.name}</b>
+
+<br>
+
+موجودی:
+${x.qty}
+${x.unit}
+
+<br>
+
+قیمت خرید:
+${x.price}
+
+<br><br>
+
+<button onclick="del(${i})">
+حذف
+</button>
+
+</div>
+`;
+
 });
+
+document.getElementById("list").innerHTML =
+html;
+
 }
+
 loadItems();
+
 </script>
+
 </body>
 </html>

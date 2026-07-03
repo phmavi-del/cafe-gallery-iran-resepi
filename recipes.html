@@ -1,4 +1,149 @@
-<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recipes</title></head><body style="font-family:tahoma;background:#111;color:#fff">
-<h1 style="color:#d4af37">مدیریت رسپی کافه گالری ایران</h1>
-<p>نسخه اولیه بخش رسپی‌ها با ذخیره در LocalStorage</p>
-</body></html>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>رسپی ها</title>
+
+<style>
+body{
+font-family:tahoma;
+background:#111;
+color:#fff;
+padding:15px;
+}
+
+h1{
+color:#d4af37;
+text-align:center;
+}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+margin:5px 0;
+border:none;
+border-radius:8px;
+background:#222;
+color:#fff;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#d4af37;
+border:none;
+border-radius:8px;
+font-weight:bold;
+}
+
+.item{
+background:#1b1b1b;
+border:1px solid #d4af37;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>مدیریت رسپی کافه گالری ایران</h1>
+
+<select id="category">
+<option>برگر</option>
+<option>پیتزا</option>
+<option>ساندویچ</option>
+<option>سالاد</option>
+<option>پاستا</option>
+<option>بار گرم</option>
+<option>بار سرد</option>
+<option>دسر</option>
+</select>
+
+<input id="name" placeholder="نام آیتم">
+
+<textarea id="recipe" rows="6" placeholder="مواد اولیه و دستور تهیه"></textarea>
+
+<button onclick="saveRecipe()">
+ذخیره رسپی
+</button>
+
+<div id="list"></div>
+
+<script>
+
+let recipes=
+JSON.parse(localStorage.getItem("recipes")||"[]");
+
+function render(){
+
+let html="";
+
+recipes.forEach((r,i)=>{
+
+html+=`
+<div class="item">
+<h3>${r.name}</h3>
+<p><b>دسته:</b> ${r.category}</p>
+<p>${r.recipe}</p>
+<button onclick="removeRecipe(${i})">
+حذف
+</button>
+</div>
+`;
+
+});
+
+document.getElementById("list").innerHTML=html;
+}
+
+function saveRecipe(){
+
+let obj={
+
+category:
+document.getElementById("category").value,
+
+name:
+document.getElementById("name").value,
+
+recipe:
+document.getElementById("recipe").value
+
+};
+
+recipes.push(obj);
+
+localStorage.setItem(
+"recipes",
+JSON.stringify(recipes)
+);
+
+document.getElementById("name").value="";
+document.getElementById("recipe").value="";
+
+render();
+}
+
+function removeRecipe(i){
+
+recipes.splice(i,1);
+
+localStorage.setItem(
+"recipes",
+JSON.stringify(recipes)
+);
+
+render();
+
+}
+
+render();
+
+</script>
+
+</body>
+</html>
