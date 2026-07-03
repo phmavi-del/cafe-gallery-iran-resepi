@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='fa' dir='rtl'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>داشبورد حرفه‌ای</title>
+<style>
+body{font-family:tahoma;background:#111;color:#fff;margin:0}
+.header{background:#000;padding:15px;border-bottom:2px solid #d4af37}
+h1{color:#d4af37;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;padding:15px}
+.card{background:#1b1b1b;border:1px solid #d4af37;border-radius:12px;padding:20px;text-align:center;text-decoration:none;color:#fff}
+.card:hover{transform:scale(1.02)}
+.footer{text-align:center;padding:15px;color:#aaa}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>☕ کافه گالری ایران</h1>
+</div>
+
+<div class="grid">
+<a class="card" href="recipes.html">🍔 رسپی‌ها</a>
+<a class="card" href="inventory.html">📦 انبار</a>
+<a class="card" href="notes.html">📝 یادداشت‌ها</a>
+<a class="card" href="contacts.html">📞 دفتر تلفن</a>
+<a class="card" href="calculator.html">🧮 ماشین حساب</a>
+<a class="card" href="timer.html">⏱️ تایمر</a>
+<a class="card" href="backup.html">💾 پشتیبان گیری</a>
+<a class="card" href="settings.html">⚙️ تنظیمات</a>
+</div>
+
+<div class="footer">
+طراحی و توسعه: محسن بابایی<br>
+09393512173 - 09113512173
+
+<script>
+const cafeName =
+localStorage.getItem("cafeName")
+|| "کافه گالری ایران";
+
+document.querySelector("h1").innerText =
+"☕ " + cafeName;
+</script>
+
+</div>
+</body>
+</html>
