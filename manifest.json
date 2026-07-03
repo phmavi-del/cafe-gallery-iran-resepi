@@ -1,27 +1,23 @@
 {
   "name": "کافه گالری ایران",
   "short_name": "CafeGallery",
+  "description": "سیستم مدیریت کافه شامل رسپی، انبار، دفتر تلفن، یادداشت، پشتیبان گیری، ماشین حساب و تایمر",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#111111",
   "theme_color": "#d4af37",
-  "description": "مدیریت رسپی، انبار، دفتر تلفن، یادداشت، تنظیمات و ابزارهای کافه گالری ایران",
-  "lang": "fa",
-  "dir": "rtl",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
